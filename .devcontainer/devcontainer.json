@@ -1,0 +1,14 @@
+{
+  "name": "Oficina PHP + MariaDB",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspaces/Sistema-Oficina_Mecanica",
+  "forwardPorts": [8000, "phpmyadmin:80"],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "bmewburn.vscode-intelephense-client"
+      ]
+    }
+  }
+}
