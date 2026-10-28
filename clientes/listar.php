@@ -20,6 +20,7 @@ $clientes = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
             <th>Nome</th>
             <th>Telefone</th>
             <th>E-mail</th>
+            <th>Ações</th>
         </tr>
         <?php foreach ($clientes as $c): ?>
         <tr>
@@ -27,6 +28,7 @@ $clientes = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
             <td><?= htmlspecialchars($c['nome']) ?></td>
             <td><?= htmlspecialchars($c['telefone']) ?></td>
             <td><?= htmlspecialchars($c['email']) ?></td>
+            <td><a href="editar.php?id=<?= $c['id'] ?>">Editar</a></td>
         </tr>
         <?php endforeach; ?>
     </table>
