@@ -12,6 +12,7 @@ $clientes = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
     <h1>Clientes</h1>
+    <p><a href="cadastrar.php">+ Novo cliente</a></p>
 
     <table border="1" cellpadding="6">
         <tr>
