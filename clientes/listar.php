@@ -28,7 +28,10 @@ $clientes = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
             <td><?= htmlspecialchars($c['nome']) ?></td>
             <td><?= htmlspecialchars($c['telefone']) ?></td>
             <td><?= htmlspecialchars($c['email']) ?></td>
-            <td><a href="editar.php?id=<?= $c['id'] ?>">Editar</a></td>
+            <td>
+                <a href="editar.php?id=<?= $c['id'] ?>">Editar</a> |
+                <a href="excluir.php?id=<?= $c['id'] ?>" onclick="return confirm('Tem certeza que deseja excluir este cliente?')">Excluir</a>
+            </td>
         </tr>
         <?php endforeach; ?>
     </table>
