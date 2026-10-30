@@ -38,3 +38,10 @@ INSERT INTO ordens_servico (veiculo_id, descricao, valor, status, data_entrada) 
 (1, 'Troca de óleo e filtros', 250.00, 'Concluída', '2026-10-20'),
 (2, 'Revisão de freios', 480.50, 'Em andamento', '2026-10-25'),
 (3, 'Alinhamento e balanceamento', 160.00, 'Aberta', '2026-10-26');
+
+CREATE TABLE IF NOT EXISTS funcionarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL
+);

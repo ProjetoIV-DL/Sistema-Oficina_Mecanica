@@ -1,4 +1,5 @@
 <?php
+require_once "../includes/protege.php";
 require_once "../conexao.php";
 
 $sql = "SELECT id, nome, telefone, email FROM clientes ORDER BY nome";

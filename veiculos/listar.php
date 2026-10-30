@@ -1,4 +1,5 @@
 <?php
+require_once "../includes/protege.php";
 require_once "../conexao.php";
 
 $sql = "SELECT v.id, v.placa, v.marca, v.modelo, v.ano, c.nome AS dono

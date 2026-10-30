@@ -1,4 +1,5 @@
 <?php
+require_once "../includes/protege.php";
 require_once "../conexao.php";
 
 $sql = "SELECT o.id, o.descricao, o.valor, o.status, o.data_entrada,
