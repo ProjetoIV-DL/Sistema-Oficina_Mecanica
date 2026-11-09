@@ -29,30 +29,43 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cadastrar Cliente</title>
+    <link rel="stylesheet" href="../css/formularios.css">
 </head>
 <body>
-    <h1>Cadastrar Cliente</h1>
+<div class="container">
+    <div class="cabecalho">
+        <h1>Cadastrar Cliente</h1>
+        <p>Preencha os dados de contato do novo cliente.</p>
+    </div>
 
-    <?php if ($erro !== ""): ?>
-        <p style="color: red;"><?= $erro ?></p>
-    <?php endif; ?>
+    <div class="cartao">
+        <?php if ($erro !== ""): ?>
+            <div class="alerta"><?= htmlspecialchars($erro) ?></div>
+        <?php endif; ?>
 
-    <form method="POST">
-        <p>
-            <label>Nome:<br>
-            <input type="text" name="nome" required></label>
-        </p>
-        <p>
-            <label>Telefone:<br>
-            <input type="text" name="telefone" required></label>
-        </p>
-        <p>
-            <label>E-mail:<br>
-            <input type="email" name="email"></label>
-        </p>
-        <button type="submit">Salvar</button>
-        <a href="listar.php">Cancelar</a>
-    </form>
+        <form method="POST">
+            <div class="campo">
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" name="nome" required>
+            </div>
+            <div class="grade">
+                <div class="campo">
+                    <label for="telefone">Telefone</label>
+                    <input type="text" id="telefone" name="telefone" required>
+                </div>
+                <div class="campo">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email">
+                </div>
+            </div>
+            <div class="acoes">
+                <button type="submit" class="btn btn-primario">Salvar</button>
+                <a href="listar.php" class="btn btn-secundario">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>

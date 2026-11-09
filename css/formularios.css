@@ -1,0 +1,88 @@
+:root {
+    --fundo: #0f1117;
+    --cartao: #171a22;
+    --borda: #262b36;
+    --texto: #e8eaf0;
+    --suave: #8b93a7;
+    --laranja: #ff9f1c;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    padding: 40px 16px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    background: var(--fundo);
+    color: var(--texto);
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.container { width: 100%; max-width: 640px; }
+
+.cabecalho, .cartao {
+    background: var(--cartao);
+    border: 1px solid var(--borda);
+    border-radius: 16px;
+    padding: 24px 28px;
+}
+.cabecalho { margin-bottom: 20px; }
+.cabecalho h1 { margin: 0 0 4px; font-size: 1.5rem; }
+.cabecalho p { margin: 0; color: var(--suave); }
+
+.campo { margin-bottom: 18px; }
+.campo label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--suave);
+}
+.campo input, .campo select {
+    width: 100%;
+    padding: 11px 14px;
+    background: var(--fundo);
+    border: 1px solid var(--borda);
+    border-radius: 10px;
+    color: var(--texto);
+    font: inherit;
+    color-scheme: dark;
+}
+.campo input:focus, .campo select:focus {
+    outline: none;
+    border-color: var(--laranja);
+    box-shadow: 0 0 0 3px rgba(255, 159, 28, 0.2);
+}
+
+.grade { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 560px) { .grade { grid-template-columns: 1fr; } }
+
+.acoes { display: flex; gap: 12px; align-items: center; margin-top: 8px; }
+
+.btn {
+    display: inline-block;
+    padding: 11px 22px;
+    border: 0;
+    border-radius: 10px;
+    font: inherit;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+}
+.btn-primario { background: var(--laranja); color: #1a1200; }
+.btn-primario:hover { filter: brightness(1.08); }
+.btn-secundario { background: transparent; color: var(--suave); border: 1px solid var(--borda); }
+.btn-secundario:hover { color: var(--texto); }
+
+.alerta {
+    margin-bottom: 18px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    background: rgba(239, 68, 68, 0.12);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    color: #fca5a5;
+}

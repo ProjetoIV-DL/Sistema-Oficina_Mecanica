@@ -14,7 +14,7 @@ try {
     header("Location: listar.php");
     exit;
 } catch (PDOException $e) {
-   
+
     if ($e->getCode() == 23000) {
         $mensagem = "Não é possível excluir, pois este cliente possui veículos cadastrados. Exclua os veículos primeiro.";
     } else {
@@ -26,11 +26,23 @@ try {
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Excluir Cliente</title>
+    <link rel="stylesheet" href="../css/formularios.css">
 </head>
 <body>
-    <h1>Excluir Cliente</h1>
-    <p style="color: red;"><?= htmlspecialchars($mensagem) ?></p>
-    <a href="listar.php">Voltar para a lista</a>
+<div class="container">
+    <div class="cabecalho">
+        <h1>Excluir Cliente</h1>
+        <p>Não foi possível concluir a exclusão.</p>
+    </div>
+
+    <div class="cartao">
+        <div class="alerta"><?= htmlspecialchars($mensagem) ?></div>
+        <div class="acoes">
+            <a href="listar.php" class="btn btn-primario">Voltar para a lista</a>
+        </div>
+    </div>
+</div>
 </body>
 </html>

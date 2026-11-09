@@ -17,7 +17,7 @@ $veiculos = $pdo->query(
      ORDER BY v.modelo"
 )->fetchAll(PDO::FETCH_ASSOC);
 
-$statusLista = ["Aberta", "Em andamento", "Concluída"];
+$statusLista = ["Diagnóstico", "Manutenção", "Testes", "Concluída"];
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $veiculo_id = $_POST["veiculo_id"];
@@ -63,48 +63,61 @@ if (!$ordem) {
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Editar Ordem de Serviço</title>
+    <link rel="stylesheet" href="../css/formularios.css">
 </head>
 <body>
-    <h1>Editar Ordem de Serviço</h1>
+<div class="container">
+    <div class="cabecalho">
+        <h1>Editar Ordem de Serviço</h1>
+        <p>Altere os dados do serviço e clique em atualizar.</p>
+    </div>
 
-    <?php if ($erro !== ""): ?>
-        <p style="color: red;"><?= htmlspecialchars($erro) ?></p>
-    <?php endif; ?>
+    <div class="cartao">
+        <?php if ($erro !== ""): ?>
+            <div class="alerta"><?= htmlspecialchars($erro) ?></div>
+        <?php endif; ?>
 
-    <form method="POST">
-        <p>
-            <label>Veículo:<br>
-            <select name="veiculo_id" required>
-                <?php foreach ($veiculos as $v): ?>
-                    <option value="<?= $v['id'] ?>" <?= $v['id'] == $ordem['veiculo_id'] ? 'selected' : '' ?>>
-                        <?= htmlspecialchars($v['modelo']) ?> (<?= htmlspecialchars($v['placa']) ?>) - <?= htmlspecialchars($v['dono']) ?>
-                    </option>
-                <?php endforeach; ?>
-            </select></label>
-        </p>
-        <p>
-            <label>Descrição do serviço:<br>
-            <input type="text" name="descricao" maxlength="255" size="50" value="<?= htmlspecialchars($ordem['descricao']) ?>" required></label>
-        </p>
-        <p>
-            <label>Valor (R$):<br>
-            <input type="text" name="valor" value="<?= number_format($ordem['valor'], 2, ',', '') ?>" required></label>
-        </p>
-        <p>
-            <label>Status:<br>
-            <select name="status">
-                <?php foreach ($statusLista as $s): ?>
-                    <option value="<?= $s ?>" <?= $s === $ordem['status'] ? 'selected' : '' ?>><?= $s ?></option>
-                <?php endforeach; ?>
-            </select></label>
-        </p>
-        <p>
-            <label>Data de entrada:<br>
-            <input type="date" name="data_entrada" value="<?= $ordem['data_entrada'] ?>" required></label>
-        </p>
-        <button type="submit">Atualizar</button>
-        <a href="listar.php">Cancelar</a>
-    </form>
+        <form method="POST">
+            <div class="campo">
+                <label for="veiculo_id">Veículo</label>
+                <select id="veiculo_id" name="veiculo_id" required>
+                    <?php foreach ($veiculos as $v): ?>
+                        <option value="<?= $v['id'] ?>" <?= $v['id'] == $ordem['veiculo_id'] ? 'selected' : '' ?>>
+                            <?= htmlspecialchars($v['modelo']) ?> (<?= htmlspecialchars($v['placa']) ?>) - <?= htmlspecialchars($v['dono']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="campo">
+                <label for="descricao">Descrição do serviço</label>
+                <input type="text" id="descricao" name="descricao" maxlength="255" value="<?= htmlspecialchars($ordem['descricao']) ?>" required>
+            </div>
+            <div class="grade">
+                <div class="campo">
+                    <label for="valor">Valor (R$)</label>
+                    <input type="text" id="valor" name="valor" value="<?= number_format($ordem['valor'], 2, ',', '') ?>" required>
+                </div>
+                <div class="campo">
+                    <label for="status">Status</label>
+                    <select id="status" name="status">
+                        <?php foreach ($statusLista as $s): ?>
+                            <option value="<?= $s ?>" <?= $s === $ordem['status'] ? 'selected' : '' ?>><?= $s ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="campo">
+                <label for="data_entrada">Data de entrada</label>
+                <input type="date" id="data_entrada" name="data_entrada" value="<?= $ordem['data_entrada'] ?>" required>
+            </div>
+            <div class="acoes">
+                <button type="submit" class="btn btn-primario">Atualizar</button>
+                <a href="listar.php" class="btn btn-secundario">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>

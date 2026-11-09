@@ -44,30 +44,41 @@ if (!$cliente) {
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Editar Cliente</title>
+    <link rel="stylesheet" href="../css/formularios.css">
 </head>
 <body>
-    <h1>Editar Cliente</h1>
+<div class="container">
+    <div class="cabecalho">
+        <h1>Editar Cliente</h1>
+        <p>Altere os dados e clique em atualizar.</p>
+    </div>
 
-    <?php if ($erro !== ""): ?>
-        <p style="color: red;"><?= $erro ?></p>
-    <?php endif; ?>
+    <div class="cartao">
+        <?php if ($erro !== ""): ?>
+            <div class="alerta"><?= htmlspecialchars($erro) ?></div>
+        <?php endif; ?>
 
-    <form method="POST">
-        <p>
-            <label>Nome:<br>
-            <input type="text" name="nome" value="<?= htmlspecialchars($cliente['nome']) ?>" required></label>
-        </p>
-        <p>
-            <label>Telefone:<br>
-            <input type="text" name="telefone" value="<?= htmlspecialchars($cliente['telefone']) ?>" required></label>
-        </p>
-        <p>
-            <label>E-mail:<br>
-            <input type="email" name="email" value="<?= htmlspecialchars($cliente['email']) ?>"></label>
-        </p>
-        <button type="submit">Atualizar</button>
-        <a href="listar.php">Cancelar</a>
-    </form>
-</body>
-</html>
+        <form method="POST">
+            <div class="campo">
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" name="nome" value="<?= htmlspecialchars($cliente['nome']) ?>" required>
+            </div>
+            <div class="grade">
+                <div class="campo">
+                    <label for="telefone">Telefone</label>
+                    <input type="text" id="telefone" name="telefone" value="<?= htmlspecialchars($cliente['telefone']) ?>" required>
+                </div>
+                <div class="campo">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" value="<?= htmlspecialchars($cliente['email']) ?>">
+                </div>
+            </div>
+            <div class="acoes">
+                <button type="submit" class="btn btn-primario">Atualizar</button>
+                <a href="listar.php" class="btn btn-secundario">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</d

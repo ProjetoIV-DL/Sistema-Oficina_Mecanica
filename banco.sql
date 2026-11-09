@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS ordens_servico (
     veiculo_id INT NOT NULL,
     descricao VARCHAR(255) NOT NULL,
     valor DECIMAL(10,2) NOT NULL,
-    status VARCHAR(20) NOT NULL DEFAULT 'Aberta',
+    status VARCHAR(20) NOT NULL DEFAULT 'Diagnóstico',
     data_entrada DATE NOT NULL,
     FOREIGN KEY (veiculo_id) REFERENCES veiculos(id)
 );
@@ -36,8 +36,8 @@ INSERT INTO veiculos (cliente_id, placa, marca, modelo, ano) VALUES
 
 INSERT INTO ordens_servico (veiculo_id, descricao, valor, status, data_entrada) VALUES
 (1, 'Troca de óleo e filtros', 250.00, 'Concluída', '2026-10-20'),
-(2, 'Revisão de freios', 480.50, 'Em andamento', '2026-10-25'),
-(3, 'Alinhamento e balanceamento', 160.00, 'Aberta', '2026-10-26');
+(2, 'Revisão de freios', 480.50, 'Manutenção', '2026-10-25'),
+(3, 'Alinhamento e balanceamento', 160.00, 'Diagnóstico', '2026-10-26');
 
 CREATE TABLE IF NOT EXISTS funcionarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
