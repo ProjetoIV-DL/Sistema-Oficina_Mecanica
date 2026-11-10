@@ -1,4 +1,3 @@
-
 <?php
 
 $host = "sql300.infinityfree.com";
