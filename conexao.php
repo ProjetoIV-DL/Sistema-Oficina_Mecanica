@@ -3,7 +3,7 @@
 $host = "sql300.infinityfree.com";
 $banco = "if0_43404760_oficina";
 $usuario = "if0_43404760";
-$senha = "SclTqCRdBYc4c0b";
+$senha = "LrNvrx3JgnLLX0g";
 
 try {
     $pdo = new PDO(
