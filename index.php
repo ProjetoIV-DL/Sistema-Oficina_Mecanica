@@ -4,10 +4,8 @@ require_once "conexao.php";
 
 date_default_timezone_set('America/Sao_Paulo');
 
-/* ====== CONFIGURAÇÃO ====== */
-$ELEVADORES_TOTAL = 5;   // quantidade de elevadores da oficina
+$ELEVADORES_TOTAL = 5;
 
-/* ====== CONSULTAS ORIGINAIS (inalteradas) ====== */
 $totalClientes = $pdo->query("SELECT COUNT(*) FROM clientes")->fetchColumn();
 $totalVeiculos = $pdo->query("SELECT COUNT(*) FROM veiculos")->fetchColumn();
 $totalOrdens = $pdo->query("SELECT COUNT(*) FROM ordens_servico")->fetchColumn();
@@ -24,8 +22,6 @@ $sqlSub = "SELECT nome FROM clientes
            )
            ORDER BY nome";
 $clientesPendentes = $pdo->query($sqlSub)->fetchAll(PDO::FETCH_COLUMN);
-
-/* ====== DADOS PARA O QUADRO DA OFICINA ====== */
 
 function campo($row, $chaves, $padrao = '')
 {
@@ -176,7 +172,7 @@ function moeda($n) { return number_format((float)$n, 2, ',', '.'); }
             --card-hover: #21242d;
             --text: #f3f4f6;
             --muted: #9ca3af;
-            --accent: #f59e0b; /* Amarelo industrial */
+            --accent: #f59e0b;
             --accent-hover: #d97706;
             --cyan: #38bdf8;
             --red: #ef4444;
@@ -200,14 +196,12 @@ function moeda($n) { return number_format((float)$n, 2, ',', '.'); }
         .mono { font-family: var(--mono); }
         :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-        /* ---------- Layout Principal ---------- */
         .app {
             display: grid;
             grid-template-columns: 88px minmax(0, 1fr) 340px;
             min-height: 100vh;
         }
 
-        /* ---------- Barra Lateral (Rail) ---------- */
         .rail {
             position: sticky;
             top: 0;
@@ -264,7 +258,6 @@ function moeda($n) { return number_format((float)$n, 2, ',', '.'); }
         }
         .rail-out:hover { background: rgba(239, 68, 68, 0.15); color: #f87171; }
 
-        /* Mini Indicadores na Lateral */
         .gauges {
             width: 100%;
             padding: 0 10px;
@@ -272,12 +265,12 @@ function moeda($n) { return number_format((float)$n, 2, ',', '.'); }
             gap: 12px;
         }
 
-        .gauge { 
+        .gauge {
             background: #121318;
             border: 1px solid var(--line);
             border-radius: 10px;
-            text-align: center; 
-            padding: 8px 4px; 
+            text-align: center;
+            padding: 8px 4px;
         }
         .gauge b { display: block; font-family: var(--mono); font-size: 0.95rem; font-weight: 700; color: var(--text); }
         .gauge span { display: block; font-size: 0.65rem; color: var(--muted); text-transform: uppercase; margin-top: 2px; }
@@ -288,7 +281,6 @@ function moeda($n) { return number_format((float)$n, 2, ',', '.'); }
         .gauge.ok b { color: var(--green); }
         .gauge.ok i s { background: var(--green); }
 
-        /* ---------- Área Central ---------- */
         .main { padding: 30px; min-width: 0; display: flex; flex-direction: column; gap: 24px; }
 
         .head { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; background: var(--card); padding: 24px; border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2); }
@@ -298,7 +290,6 @@ function moeda($n) { return number_format((float)$n, 2, ',', '.'); }
 
         .box { background: var(--card); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2); }
 
-        /* Cards de Métricas (KPIs) */
         .kpis { display: grid; grid-template-columns: 2fr 1.2fr 1fr 1fr 1fr; background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
         .kpi { padding: 20px; border-right: 1px solid var(--line); min-width: 0; display: flex; flex-direction: column; justify-content: center; }
         .kpi:last-child { border-right: 0; }
@@ -307,19 +298,17 @@ function moeda($n) { return number_format((float)$n, 2, ',', '.'); }
         .kpi.big .n { font-size: 1.8rem; color: var(--green); }
         .kpi .n small { font-size: 0.55em; font-weight: 400; color: var(--muted); margin-right: 2px; }
 
-        /* Títulos de Seção */
         .sec-title { display: flex; align-items: center; gap: 10px; font-size: 1.05rem; font-weight: 700; margin-bottom: 14px; color: var(--text); }
         .sec-title i { color: var(--accent); font-size: 0.95rem; background: rgba(245, 158, 11, 0.1); padding: 8px; border-radius: 8px; border: 1px solid rgba(245, 158, 11, 0.2); }
         .sec-title .aux { margin-left: auto; font-weight: 500; font-size: 0.82rem; color: var(--muted); background: #121318; padding: 4px 10px; border-radius: 6px; border: 1px solid var(--line); }
 
-        /* Kanban / Quadro de Veículos */
         .board { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
 
-        .col { border: 1px solid var(--line); border-radius: 12px; background: var(--card); display: flex; flex-direction: column; min-height: 280px; overflow: hidden; }
+        .col { border: 1px solid var(--line); border-radius: 12px; background: var(--card); display: flex; flex-direction: column; min-height: 280px; max-height: 520px; overflow: hidden; }
         .col-head { display: flex; align-items: center; gap: 8px; padding: 12px 16px; background: #121318; border-bottom: 1px solid var(--line); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
         .col-head i { color: var(--c); font-size: 0.9rem; }
         .col-head .qtd { margin-left: auto; font-family: var(--mono); font-weight: 600; font-size: 0.75rem; background: var(--card); padding: 2px 8px; border-radius: 6px; border: 1px solid var(--line); color: var(--text); }
-        .col-body { padding: 12px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+        .col-body { padding: 12px; display: flex; flex-direction: column; gap: 10px; flex: 1; min-height: 0; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #3a4152 transparent; }
 
         .e-diagnostico { --c: var(--muted); }
         .e-manutencao  { --c: var(--cyan); }
@@ -327,7 +316,7 @@ function moeda($n) { return number_format((float)$n, 2, ',', '.'); }
         .e-pronto      { --c: var(--green); }
         .e-cancelado   { --c: var(--line); }
 
-        .car { background: #121318; border: 1px solid var(--line); border-left: 4px solid var(--c); border-radius: 8px; padding: 12px; transition: transform 0.2s; }
+        .car { background: #121318; border: 1px solid var(--line); border-left: 4px solid var(--c); border-radius: 8px; padding: 12px; transition: transform 0.2s; flex-shrink: 0; }
         .car:hover { border-color: var(--accent); }
         .car.crit { border-left-color: var(--red); background: rgba(239, 68, 68, 0.03); }
         .car .m { font-weight: 700; font-size: 0.9rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text); }
@@ -343,7 +332,6 @@ function moeda($n) { return number_format((float)$n, 2, ',', '.'); }
 
         .vazio { color: var(--muted); font-size: 0.85rem; padding: 30px 10px; text-align: center; font-style: italic; }
 
-        /* Tabela Densa e Moderna */
         .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
         .chip { font-size: 0.8rem; color: var(--muted); background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; display: flex; align-items: center; gap: 6px; font-weight: 500; }
         .chip b { font-family: var(--mono); color: var(--text); background: #121318; padding: 2px 6px; border-radius: 4px; border: 1px solid var(--line); }
@@ -356,10 +344,10 @@ function moeda($n) { return number_format((float)$n, 2, ',', '.'); }
         tbody tr:hover { background: rgba(255, 255, 255, 0.02); }
         td.num, th.num { text-align: right; }
         td.pecas { max-width: 220px; overflow: hidden; text-overflow: ellipsis; color: var(--muted); }
-        
+
         .st { display: inline-flex; align-items: center; gap: 8px; font-weight: 500; }
         .st::before { content: ""; width: 8px; height: 8px; background: var(--c); border-radius: 50%; box-shadow: 0 0 8px var(--c); }
-        
+
         .urg { font-family: var(--mono); font-size: 0.75rem; font-weight: 600; padding: 4px 10px; border-radius: 6px; display: inline-block; }
         .urg.crit { color: var(--red); background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); }
         .urg.aten { color: var(--accent); background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.2); }
@@ -367,7 +355,6 @@ function moeda($n) { return number_format((float)$n, 2, ',', '.'); }
 
         .foot { margin-top: auto; padding-top: 10px; text-align: center; color: var(--muted); font-size: 0.8rem; }
 
-        /* ---------- Coluna Direita (Feed & Avisos) ---------- */
         .feed {
             position: sticky; top: 0; height: 100vh;
             overflow-y: auto;
@@ -381,8 +368,8 @@ function moeda($n) { return number_format((float)$n, 2, ',', '.'); }
         .feed h2 i { color: var(--accent); font-size: 0.9rem; background: rgba(245, 158, 11, 0.1); padding: 8px; border-radius: 8px; border: 1px solid rgba(245, 158, 11, 0.2); }
         .feed h2 .cnt { margin-left: auto; font-family: var(--mono); font-weight: 600; font-size: 0.75rem; background: #121318; padding: 3px 8px; border-radius: 6px; border: 1px solid var(--line); color: var(--text); }
 
-        .alerts { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-        .alert { display: flex; gap: 12px; padding: 12px; background: #121318; border: 1px solid var(--line); border-left: 4px solid var(--c); border-radius: 10px; font-size: 0.83rem; align-items: flex-start; }
+        .alerts { list-style: none; display: flex; flex-direction: column; gap: 10px; max-height: 340px; overflow-y: auto; padding-right: 4px; scrollbar-width: thin; scrollbar-color: #3a4152 transparent; }
+        .alert { display: flex; gap: 12px; padding: 12px; background: #121318; border: 1px solid var(--line); border-left: 4px solid var(--c); border-radius: 10px; font-size: 0.83rem; align-items: flex-start; flex-shrink: 0; }
         .alert > i { color: var(--c); font-size: 1rem; margin-top: 2px; }
         .alert time { display: block; margin-top: 4px; font-family: var(--mono); font-size: 0.7rem; color: var(--muted); }
         .alert.bad  { --c: var(--red); background: rgba(239, 68, 68, 0.03); }
@@ -395,7 +382,6 @@ function moeda($n) { return number_format((float)$n, 2, ',', '.'); }
 
         .vazio-feed { color: var(--muted); font-size: 0.85rem; padding: 12px; text-align: center; background: #121318; border-radius: 8px; border: 1px solid var(--line); font-style: italic; }
 
-        /* ---------- Responsividade ---------- */
         @media (max-width: 1280px) {
             .app { grid-template-columns: 88px minmax(0, 1fr); }
             .feed { grid-column: 2; position: static; height: auto; border-left: 0; border-top: 1px solid var(--line); flex-direction: row; flex-wrap: wrap; }
@@ -431,7 +417,6 @@ function moeda($n) { return number_format((float)$n, 2, ',', '.'); }
 <body>
 <div class="app">
 
-    <!-- Barra Lateral (Rail) -->
     <aside class="rail">
         <a href="index.php" class="rail-logo" title="Oficina Mecânica" aria-label="Oficina Mecânica"><i class="fa-solid fa-wrench"></i></a>
 
@@ -465,7 +450,6 @@ function moeda($n) { return number_format((float)$n, 2, ',', '.'); }
         <a href="logout.php" class="rail-out" title="Sair do Sistema" aria-label="Sair"><i class="fa-solid fa-right-from-bracket"></i></a>
     </aside>
 
-    <!-- Área Central -->
     <main class="main">
 
         <div class="head">
@@ -476,7 +460,6 @@ function moeda($n) { return number_format((float)$n, 2, ',', '.'); }
             <div class="data"><i class="fa-regular fa-calendar"></i> <?= date('d/m/Y') ?></div>
         </div>
 
-        <!-- Métricas Principais (KPIs) -->
         <section class="kpis" aria-label="Resumo Financeiro e Cadastral">
             <div class="kpi big">
                 <div class="l">Faturamento (Concluídas)</div>
@@ -500,7 +483,6 @@ function moeda($n) { return number_format((float)$n, 2, ',', '.'); }
             </div>
         </section>
 
-        <!-- Quadro Kanban de Veículos na Oficina -->
         <section>
             <div class="sec-title">
                 <i class="fa-solid fa-car-side"></i> Veículos na Oficina (Fluxo de Trabalho)
@@ -539,7 +521,6 @@ function moeda($n) { return number_format((float)$n, 2, ',', '.'); }
             </div>
         </section>
 
-        <!-- Tabela de Ordens de Serviço -->
         <section>
             <div class="sec-title">
                 <i class="fa-solid fa-clipboard-list"></i> <?= $tituloTabela ?>
@@ -593,7 +574,6 @@ function moeda($n) { return number_format((float)$n, 2, ',', '.'); }
         <div class="foot">Sistema de Gestão Automotiva &bull; Módulo Administrativo</div>
     </main>
 
-    <!-- Coluna Direita (Avisos e Pendências) -->
     <aside class="feed">
         <section>
             <h2><i class="fa-solid fa-tower-broadcast"></i> Alertas Operacionais <span class="cnt"><?= count($avisos) ?></span></h2>

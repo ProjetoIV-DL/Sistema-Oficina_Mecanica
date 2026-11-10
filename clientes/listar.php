@@ -48,14 +48,14 @@ $totalClientes = count($clientes);
         .mono { font-family: var(--mono); }
         :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-        /* ---------- Layout Principal ---------- */
+        /*Layout Principal*/
         .app {
             display: grid;
             grid-template-columns: 88px minmax(0, 1fr);
             min-height: 100vh;
         }
 
-        /* ---------- Barra Lateral (Rail) ---------- */
+        /*Barra Lateral*/
         .rail {
             position: sticky;
             top: 0;
@@ -112,7 +112,7 @@ $totalClientes = count($clientes);
         }
         .rail-out:hover { background: rgba(239, 68, 68, 0.15); color: #f87171; }
 
-        /* ---------- Área Central ---------- */
+        /*Área Central*/
         .main { padding: 30px; min-width: 0; display: flex; flex-direction: column; gap: 24px; }
 
         .head { 
@@ -153,7 +153,7 @@ $totalClientes = count($clientes);
         .sec-title i { color: var(--accent); font-size: 0.95rem; background: rgba(245, 158, 11, 0.1); padding: 8px; border-radius: 8px; border: 1px solid rgba(245, 158, 11, 0.2); }
         .sec-title .aux { margin-left: auto; font-weight: 500; font-size: 0.82rem; color: var(--muted); background: #121318; padding: 4px 10px; border-radius: 6px; border: 1px solid var(--line); }
 
-        /* Tabela Densa e Moderna */
+        /*Tabela Densa e Moderna*/
         .tbl-wrap { overflow-x: auto; border-radius: 16px; }
         table { width: 100%; border-collapse: collapse; font-size: 0.875rem; text-align: left; }
         th { font-weight: 600; color: var(--muted); background: #121318; padding: 14px 18px; border-bottom: 1px solid var(--line); white-space: nowrap; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -172,7 +172,7 @@ $totalClientes = count($clientes);
 
         .foot { margin-top: auto; padding-top: 10px; text-align: center; color: var(--muted); font-size: 0.8rem; }
 
-        /* Responsividade */
+        /*Responsividade*/
         @media (max-width: 760px) {
             .app { grid-template-columns: 1fr; }
             .rail { position: static; height: auto; flex-direction: row; flex-wrap: wrap; justify-content: center; padding: 12px; border-right: 0; border-bottom: 1px solid var(--line); }
@@ -186,7 +186,7 @@ $totalClientes = count($clientes);
 <body>
 <div class="app">
 
-    <!-- Barra Lateral (Rail) -->
+    <!-- Barra Lateral (Rail -->
     <aside class="rail">
         <a href="../index.php" class="rail-logo" title="Oficina Mecânica" aria-label="Oficina Mecânica"><i class="fa-solid fa-wrench"></i></a>
 
