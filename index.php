@@ -104,10 +104,6 @@ foreach ($ordens as $o) {
 
 $ativas = count($quadro['diagnostico']) + count($quadro['manutencao']) + count($quadro['testes']);
 $ocupados = min($ELEVADORES_TOTAL, count($quadro['manutencao']) + count($quadro['testes']));
-$criticas = 0;
-foreach (['diagnostico', 'manutencao', 'testes'] as $e) {
-    foreach ($quadro[$e] as $o) if ($o['_urg'] === 'crit') $criticas++;
-}
 
 $hoje = date('Y-m-d');
 $ordensDia = array_values(array_filter($ordens, function ($o) use ($hoje) {
@@ -439,10 +435,6 @@ function moeda($n) { return number_format((float)$n, 2, ',', '.'); }
                 <b><?= $ativas ?></b>
                 <span>Ativas</span>
             </div>
-            <div class="gauge <?= $criticas > 0 ? 'bad' : '' ?>" title="Ordens com urgência crítica">
-                <b><?= $criticas ?></b>
-                <span>Críticas</span>
-            </div>
             <div class="gauge ok" title="Prontos para entrega">
                 <b><?= count($quadro['pronto']) ?></b>
                 <span>Prontos</span>
@@ -488,7 +480,6 @@ function moeda($n) { return number_format((float)$n, 2, ',', '.'); }
         <section>
             <div class="sec-title">
                 <i class="fa-solid fa-car-side"></i> Veículos na Oficina (Fluxo de Trabalho)
-                <span class="aux">Atualizado agora</span>
             </div>
 
             <div class="board">
