@@ -45,3 +45,8 @@ CREATE TABLE IF NOT EXISTS funcionarios (
     email VARCHAR(100) NOT NULL UNIQUE,
     senha VARCHAR(255) NOT NULL
 );
+
+INSERT INTO funcionarios (nome, email, senha) VALUES
+('Administrador', 'admin@oficina.com', '$2y$10$AjHvN19UmD5/YiytEQq.FOjpZpR8rT3LnQKZvD09SqfYrBYzEXt1i')
+ON DUPLICATE KEY UPDATE senha = VALUES(senha);
+

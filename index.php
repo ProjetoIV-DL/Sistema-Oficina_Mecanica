@@ -14,15 +14,6 @@ $ticketMedio = $pdo->query("SELECT COALESCE(AVG(valor), 0) FROM ordens_servico")
 
 $porStatus = $pdo->query("SELECT status, COUNT(*) AS total FROM ordens_servico GROUP BY status")->fetchAll(PDO::FETCH_ASSOC);
 
-$sqlSub = "SELECT nome FROM clientes
-           WHERE id IN (
-               SELECT v.cliente_id FROM veiculos v
-               JOIN ordens_servico o ON o.veiculo_id = v.id
-               WHERE o.status <> 'Concluída'
-           )
-           ORDER BY nome";
-$clientesPendentes = $pdo->query($sqlSub)->fetchAll(PDO::FETCH_COLUMN);
-
 function campo($row, $chaves, $padrao = '')
 {
     foreach ($chaves as $k) {
@@ -272,8 +263,23 @@ function moeda($n) { return number_format((float)$n, 2, ',', '.'); }
             text-align: center;
             padding: 8px 4px;
         }
-        .gauge b { display: block; font-family: var(--mono); font-size: 0.95rem; font-weight: 700; color: var(--text); }
-        .gauge span { display: block; font-size: 0.65rem; color: var(--muted); text-transform: uppercase; margin-top: 2px; }
+        .gauge b {
+            display: block;
+            font-family: var(--mono);
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .gauge span {
+            display: block;
+            font-size: 0.58rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            margin-top: 2px;
+            letter-spacing: 0;
+            white-space: nowrap;
+        }
         .gauge i { display: block; height: 4px; margin-top: 6px; background: #1c1f26; border-radius: 2px; overflow: hidden; }
         .gauge i s { display: block; height: 100%; background: var(--accent); text-decoration: none; border-radius: 2px; }
         .gauge.bad b { color: var(--red); }
@@ -375,10 +381,6 @@ function moeda($n) { return number_format((float)$n, 2, ',', '.'); }
         .alert.bad  { --c: var(--red); background: rgba(239, 68, 68, 0.03); }
         .alert.info { --c: var(--cyan); background: rgba(56, 189, 248, 0.03); }
         .alert.ok   { --c: var(--green); background: rgba(16, 185, 129, 0.03); }
-
-        .clientes { list-style: none; display: flex; flex-direction: column; gap: 6px; }
-        .clientes li { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #121318; border: 1px solid var(--line); border-radius: 8px; font-size: 0.85rem; font-weight: 500; }
-        .clientes li::before { content: ""; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; flex: none; box-shadow: 0 0 6px var(--accent); }
 
         .vazio-feed { color: var(--muted); font-size: 0.85rem; padding: 12px; text-align: center; background: #121318; border-radius: 8px; border: 1px solid var(--line); font-style: italic; }
 
@@ -590,20 +592,6 @@ function moeda($n) { return number_format((float)$n, 2, ',', '.'); }
                                 <?php if ($a['quando'] !== ''): ?><time><?= htmlspecialchars($a['quando']) ?></time><?php endif; ?>
                             </div>
                         </li>
-                    <?php endforeach; ?>
-                </ul>
-            <?php endif; ?>
-        </section>
-
-        <section>
-            <h2><i class="fa-solid fa-hourglass-half"></i> Clientes com Pendências <span class="cnt"><?= count($clientesPendentes) ?></span></h2>
-
-            <?php if (count($clientesPendentes) === 0): ?>
-                <p class="vazio-feed">Nenhum cliente com serviço em aberto.</p>
-            <?php else: ?>
-                <ul class="clientes">
-                    <?php foreach ($clientesPendentes as $nome): ?>
-                        <li><?= htmlspecialchars($nome) ?></li>
                     <?php endforeach; ?>
                 </ul>
             <?php endif; ?>
